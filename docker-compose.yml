@@ -1,0 +1,48 @@
+version: '3.8'
+
+# A 'service' is a single running container.
+services:
+  ollama:
+    # Use the official Ollama image from Docker Hub
+    image: ollama/ollama
+    
+    # Give the container a consistent name
+    container_name: ollama
+    
+    # --- NEW FIX ---
+    # Use the host's network directly. This bypasses all of
+    # Docker's internal DNS and networking, and the container
+    # will just use your Arch Linux network settings.
+    network_mode: "host"
+      
+    # This block is essential for giving the container access to your NVIDIA GPU.
+    # This requires the 'nvidia-container-toolkit' to be installed on your
+    # Arch Linux host system.
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all  # 'all' passes all your GPUs to the container
+              capabilities: [gpu]
+              
+    # Expose the container's port 11434 to your computer's port 11434.
+    # This is how your Python script will talk to the Ollama server.
+    ports:
+      - "11434:11434"
+      
+    # This is the most important part for keeping your system clean.
+    # We map a 'named volume' called 'ollama_data' to the folder
+    # inside the container where models are stored.
+    volumes:
+      - ollama_data:/root/.ollama
+      
+    # This makes sure the container restarts automatically if you
+    # restart your computer (unless you manually stop it).
+    restart: unless-stopped
+
+# This section formally defines the named volume.
+# This tells Docker to manage this data and not delete it
+# when the container is removed.
+volumes:
+  ollama_data:
