@@ -1,94 +1,102 @@
-Local AI Document Summarizer
+# 🤖 Local AI Document Summarizer
 
 A simple, private tool to summarize text and PDF documents locally using Ollama and Llama 3.
 
 This project runs a Large Language Model (LLM) inside a Docker container, ensuring your data stays on your machine.
 
-Features
+---
 
-100% Private: No data is sent to the cloud.
+## ✨ Features
 
-Easy Setup: Runs cleanly in Docker.
+- **🔒 100% Private**: No data is sent to the cloud
+- **⚡ Easy Setup**: Runs cleanly in Docker
+- **🚀 GPU Supported**: Fast inference with NVIDIA GPUs
+- **📄 Multi-Format**: Supports `.txt` and `.pdf` files
 
-GPU Supported: Fast inference with NVIDIA GPUs.
+---
 
-Multi-Format: Supports .txt and .pdf files.
+## 📋 Prerequisites
 
-Prerequisites
+Before you begin, ensure you have the following installed:
 
-Docker & Docker Compose
+- [Docker](https://docs.docker.com/get-docker/) & [Docker Compose](https://docs.docker.com/compose/install/)
+- Python 3.8+
+- [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html) (Linux/GPU users only)
 
-Python 3.8+
+---
 
-NVIDIA Container Toolkit (Linux/GPU users)
+## 🛠️ Installation
 
-Installation
+### 1. Clone the repository
 
-Clone the repo:
-
-git clone [https://github.com/yourusername/local-summarizer.git](https://github.com/yourusername/local-summarizer.git)
+```bash
+git clone https://github.com/yourusername/local-summarizer.git
 cd local-summarizer
+```
 
+### 2. Start Ollama server
 
-Start Ollama:
-
+```bash
 make up
+```
 
+### 3. Download the model (Llama 3)
 
-Download Model (Llama 3):
-
+```bash
 make pull
+```
 
+### 4. Install Python dependencies
 
-Install Python Requirements:
-
+```bash
 pip install ollama pypdf
+```
 
+---
 
-Usage
+## 🚀 Usage
 
-Ensure the server is running (make up), then summarize a file:
+Ensure the server is running (`make up`), then summarize a file:
 
+### Summarize a text file
+
+```bash
 python summarizer.py notes.txt
+```
 
+### Summarize a PDF document
 
-or
-
+```bash
 python summarizer.py document.pdf
+```
 
+---
 
-Helper Commands
+## 📖 Helper Commands
 
-Command
+| Command | Description |
+|---------|-------------|
+| `make up` | Start the Ollama server |
+| `make down` | Stop the Ollama server |
+| `make logs` | View server logs |
+| `make pull` | Download the default model (Llama 3) |
+| `make chat` | Start an interactive chat session |
+| `make prune` | Delete everything (including data) |
 
-Description
+---
 
-make up
+## ⚙️ Configuration
 
-Start server.
+### Change the Model
 
-make down
+To use a different model (e.g., Mistral):
 
-Stop server.
+```bash
+make pull model=mistral
+```
 
-make logs
+**Note**: Remember to update `summarizer.py` to reference the new model.
 
-View logs.
+### CPU-Only Mode
 
-make pull
-
-Download default model.
-
-make chat
-
-Chat interactively.
-
-make prune
-
-Delete everything (data included).
-
-Configuration
-
-Change Model: Run make pull model=mistral (remember to update summarizer.py).
-
-CPU Mode: Remove the deploy: section in docker-compose.yml if you don't have an NVIDIA GPU.
+If you don't have an NVIDIA GPU, remove the `deploy:` section from `docker-compose.yml` to run in CPU mode.
