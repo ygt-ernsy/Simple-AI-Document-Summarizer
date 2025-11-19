@@ -28,8 +28,6 @@ def main():
         with open(file_to_read, "r") as file:
             file_content = file.read();
             print(f"Successfully read {len(file_content)} characters from {file_to_read}!")
-            print("\n--- Content ---")
-            print(file_content)
 
         try:
             user_input = file_content
