@@ -30,8 +30,8 @@ Before you begin, ensure you have the following installed:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/local-summarizer.git
-cd local-summarizer
+git clone https://github.com/ygt-ernsy/Simple-AI-Document-Summarizer
+cd Simple-AI-Document-Summarizer
 ```
 
 ### 2. Start Ollama server
@@ -49,7 +49,7 @@ make pull
 ### 4. Install Python dependencies
 
 ```bash
-pip install ollama pypdf
+pip install ollama
 ```
 
 ---
